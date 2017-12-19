@@ -10,8 +10,10 @@ package src;
  * @author tyle4760
  */
 public class Main extends javax.swing.JFrame {
+    private LinkedPriorityQueue lpq;
     public Main() {
         initComponents();
+        lpq=new LinkedPriorityQueue(3);
     }
 
     /**
@@ -40,6 +42,11 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setText("Patient Name:");
 
         jButton1.setText("Schedule");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Treat Next");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +164,10 @@ public class Main extends javax.swing.JFrame {
         fc.setSelected(false);
         sc.setSelected(false);
     }//GEN-LAST:event_ccActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
