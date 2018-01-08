@@ -5,6 +5,8 @@
  */
 package src;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tyle4760
@@ -166,9 +168,31 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_ccActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+        int condition=getCondition();
+        String pName=name.getText(),error="";
+        boolean isGood=false;
+        if(condition==-1&&pName.equals(""))error="No condition and no name";
+        else if(pName.equals(""))error="No name";
+        else if(condition==-1)error="No condition";
+        else isGood=true;
+        if(isGood)
+        {
+            lpq.enqueue(pName, condition);
+            refresh();
+        }
+        else JOptionPane.showMessageDialog(this,error,"Warning!",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private int getCondition()
+    {
+        if(cc.isSelected())return 0;
+        else if(fc.isSelected())return 1;
+        else if(sc.isSelected())return 2;
+        else return -1;
+    }
+    private void refresh()
+    {
+        
+    }
     /**
      * @param args the command line arguments
      */

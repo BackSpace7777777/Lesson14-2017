@@ -42,7 +42,7 @@ public class LinkedPriorityQueue implements PriorityQueue{
 
     @Override
     public void enqueue(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("No priority"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
