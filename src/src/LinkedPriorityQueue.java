@@ -15,7 +15,14 @@ public class LinkedPriorityQueue implements PriorityQueue{
     public void enqueue(Object obj, int priority) {
         list[priority].add(obj);
     }
-
+    public Object get(int priority,int place)
+    {
+        return list[priority].get(place);
+    }
+    public int getSize(int priority)
+    {
+        return list[priority].size();
+    }
     @Override
     public Object peekFront() {
         for(int i=0;i<size;i++)

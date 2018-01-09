@@ -13,9 +13,11 @@ import javax.swing.JOptionPane;
  */
 public class Main extends javax.swing.JFrame {
     private LinkedPriorityQueue lpq;
+    private String treated;
     public Main() {
         initComponents();
         lpq=new LinkedPriorityQueue(3);
+        treated="";
     }
 
     /**
@@ -58,6 +60,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButton3.setText("Treat All");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         fc.setText("Fair Condidtion");
         fc.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +153,10 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        treated+=((Patient)lpq.peekFront()).getName() + " has had treatment\n";
+        ((Patient)lpq.peekFront()).treat();
+        lpq.dequeue();
+        refresh();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void fcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fcActionPerformed
@@ -177,21 +187,39 @@ public class Main extends javax.swing.JFrame {
         else isGood=true;
         if(isGood)
         {
-            lpq.enqueue(pName, condition);
+            lpq.enqueue(new Patient(pName,condition), condition);
             refresh();
         }
         else JOptionPane.showMessageDialog(this,error,"Warning!",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        while(lpq.hasData())
+        {
+            treated+=((Patient)lpq.peekFront()).getName() + " has had treatment\n";
+            ((Patient)lpq.peekFront()).treat();
+            lpq.dequeue();
+        }
+        refresh();
+    }//GEN-LAST:event_jButton3ActionPerformed
     private int getCondition()
     {
         if(cc.isSelected())return 0;
-        else if(fc.isSelected())return 1;
-        else if(sc.isSelected())return 2;
+        else if(sc.isSelected())return 1;
+        else if(fc.isSelected())return 2;
         else return -1;
     }
     private void refresh()
     {
-        
+        Out.setText("");
+        for(int i=0;i<3;i++)
+            for(int l=0;l<lpq.getSize(i);l++)
+                if(!((Patient)lpq.get(i, l)).isCompleted())
+                {
+                    String temp=((Patient)lpq.get(i, l)).toString();
+                    Out.append(temp+"\n");
+                }
+        Out.append(treated);
     }
     /**
      * @param args the command line arguments

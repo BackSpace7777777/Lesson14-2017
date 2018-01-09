@@ -13,6 +13,10 @@ public class Patient {
         treatmentTime=(long)(Math.random()*100000)+5000;
         doneTreatment=false;
     }
+    public String getName()
+    {
+        return name;
+    }
     public int getPriority()
     {
         return priority;
@@ -36,6 +40,10 @@ public class Patient {
         else if(doneTreatment)return true;
         return false;
     }
+    public void treat()
+    {
+        doneTreatment=true;
+    }
     public long getTreatmentTime()
     {
         return treatmentTime;
@@ -48,5 +56,26 @@ public class Patient {
     {
         startTime=System.currentTimeMillis();
         isBeingTreated=true;
+    }
+    @Override
+    public String toString()
+    {
+        String out=name;
+        switch (priority) {
+            case 0:
+                out+="\tCritical Condition";
+                break;
+            case 1:
+                out+="\tSerious Condition";
+                break;
+            case 2:
+                out+="\tFair Condition\t";
+                break;
+            default:
+                break;
+        }
+        if(!doneTreatment)out+="\tis waiting";
+        else out+="\thad treatment";
+        return out;
     }
 }
